@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#180605">
+<title>El Gouna Film Festival — Invitation</title>
+<style>
+:root{--gold:#f4cb78;--gold2:#fff0b7;--wine:#4a0711;--ink:#170504}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:#100302;color:#fff0d1;font-family:Georgia,'Times New Roman',serif}
+body{overflow-x:hidden}
+#app{position:relative;min-height:100svh;isolation:isolate;background:radial-gradient(ellipse at center,#3b0909 0,#140403 70%)}
+.page{position:absolute;inset:0;min-height:100svh;display:flex;justify-content:center;align-items:flex-start;opacity:0;visibility:hidden;transform:translateX(3%);transition:opacity .85s ease,transform .85s ease,visibility .85s;z-index:1;padding:0}
+.page.active{position:relative;opacity:1;visibility:visible;transform:translateX(0);z-index:2}
+.art{width:100%;max-width:900px;position:relative;line-height:0;overflow:hidden;box-shadow:0 0 50px #000}
+.art img{display:block;width:100%;height:auto;min-height:100svh;object-fit:cover;object-position:top center}
+.glow{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.star{position:absolute;width:4px;height:4px;border-radius:50%;background:#ffe7a0;box-shadow:0 0 5px 2px #ffd16b,0 0 13px 5px #c9802e;animation:twinkle var(--dur,3s) ease-in-out infinite;animation-delay:var(--delay,0s);opacity:0}
+.star:after{content:"";position:absolute;left:50%;top:50%;width:15px;height:1px;background:#ffe7a0;transform:translate(-50%,-50%);box-shadow:0 0 6px #ffcd63}
+.star:before{content:"";position:absolute;left:50%;top:50%;height:15px;width:1px;background:#ffe7a0;transform:translate(-50%,-50%);box-shadow:0 0 6px #ffcd63}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(.45) rotate(0)}45%,60%{opacity:.95;transform:scale(1.1) rotate(45deg)}}
+.camera-flash{position:fixed;inset:0;z-index:10;pointer-events:none;background:#fff4d4;opacity:0;animation:flash 8s infinite}
+@keyframes flash{0%,36%,38%,70%,72%,100%{opacity:0}37%{opacity:.25}71%{opacity:.16}}
+.filmshine{position:fixed;z-index:8;inset:0;pointer-events:none;opacity:.4;background:linear-gradient(115deg,transparent 0%,transparent 44%,#fff1b9 49%,transparent 54%,transparent 100%);background-size:230% 100%;animation:film 7s linear infinite;mix-blend-mode:screen}
+@keyframes film{0%{background-position:150% 0;opacity:.05}35%{opacity:.5}65%{opacity:.1}100%{background-position:-80% 0;opacity:.05}}
+/* The visible controls are layered over the supplied poster artwork. */
+.open-btn{position:absolute;left:50%;top:69.5%;transform:translateX(-50%);width:min(55%,470px);height:7.2%;min-height:48px;border:0;border-radius:999px;color:transparent;background:transparent;box-shadow:none;cursor:pointer;font-size:0;line-height:1;transition:transform .25s}
+.open-btn:hover{transform:translateX(-50%) scale(1.025)}
+.hotspot{position:absolute;left:22%;width:56%;height:5.9%;border:0;background:transparent;border-radius:999px;cursor:pointer}
+.hotspot:focus-visible,.open-btn:focus-visible{outline:2px solid #fff0b7;outline-offset:4px}
+#registration{top:53.4%}#location{top:60.1%}#photos{top:66.8%}#videos{top:73.5%}#website{top:80.1%}
+.back-btn{position:fixed;left:14px;top:14px;z-index:20;border:1px solid #f3ca7b;background:#250507dd;color:#ffe6ad;border-radius:30px;padding:10px 15px;font:14px Georgia,serif;cursor:pointer;box-shadow:0 0 12px #a56c28}
+.music-btn{position:fixed;right:14px;top:14px;z-index:20;border:1px solid #f3ca7b;background:#250507dd;color:#ffe6ad;border-radius:30px;padding:10px 13px;font:13px Georgia,serif;cursor:pointer;box-shadow:0 0 12px #a56c28}
+.music-note{position:fixed;z-index:20;right:14px;top:62px;max-width:230px;color:#ffe7b0;background:#1c0505e8;border:1px solid #9d6c34;border-radius:10px;padding:8px 10px;font:12px/1.35 Arial,sans-serif;display:none}
+.music-note.show{display:block}
+@media(min-width:700px){.page{align-items:center}.art{max-height:100svh;width:auto}.art img{height:100svh;width:auto;max-width:100vw;min-height:0;object-fit:contain}.open-btn{top:69.5%}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:1ms!important;animation-iteration-count:1!important;transition-duration:1ms!important}}
+</style>
+</head>
+<body>
+<div id="app">
+  <section class="page active" id="page1" aria-label="Invitation cover">
+    <div class="art">
+      <img src="cover.png" alt="El Gouna Film Festival invitation cover">
+      <div class="glow" aria-hidden="true"></div>
+      <button class="open-btn" id="openInvitation" aria-label="Open invitation"><span aria-hidden="true"></span></button>
+    </div>
+  </section>
+  <section class="page" id="page2" aria-label="Festival details">
+    <div class="art">
+      <img src="details.png" alt="El Gouna Film Festival details and links">
+      <div class="glow" aria-hidden="true"></div>
+      <button class="hotspot" id="registration" aria-label="Confirm attendance and open official accreditation"></button>
+      <button class="hotspot" id="location" aria-label="Open festival location in Google Maps"></button>
+      <button class="hotspot" id="photos" aria-label="Open official festival photos and social page"></button>
+      <button class="hotspot" id="videos" aria-label="Open festival videos"></button>
+      <button class="hotspot" id="website" aria-label="Open official festival website"></button>
+    </div>
+  </section>
+</div>
+<div class="filmshine" aria-hidden="true"></div><div class="camera-flash" aria-hidden="true"></div>
+<button class="back-btn" id="backButton" style="display:none">← BACK</button>
+<button class="music-btn" id="musicButton" aria-label="Play or pause music">♫ MUSIC: ON</button>
+<div class="music-note" id="musicNote">If music does not start automatically, tap anywhere on the invitation once.</div>
+<audio id="festivalAudio" src="festival-song.mp3" preload="auto" loop></audio>
+<script>
+(() => {
+ const p1=document.getElementById('page1'), p2=document.getElementById('page2');
+ const audio=document.getElementById('festivalAudio'), musicBtn=document.getElementById('musicButton');
+ const note=document.getElementById('musicNote'), back=document.getElementById('backButton');
+ let musicWanted=true;
+ function setPage(which){
+   const second=which===2;
+   p1.classList.toggle('active',!second); p2.classList.toggle('active',second);
+   back.style.display=second?'block':'none';
+   window.scrollTo({top:0,behavior:'smooth'});
+ }
+ async function startMusic(){
+   try { await audio.play(); musicBtn.textContent='♫ MUSIC: ON'; note.classList.remove('show'); }
+   catch(e){ musicBtn.textContent='♫ ADD MUSIC'; note.classList.add('show'); }
+ }
+ document.getElementById('openInvitation').addEventListener('click', async()=>{if(musicWanted) await startMusic();setPage(2);});
+ // Mobile browsers may block autoplay until the first user gesture. Start from the first tap,
+ // without restarting the audio when switching between invitation pages.
+ const unlockMusic=()=>{if(musicWanted && audio.paused) startMusic();};
+ document.addEventListener('pointerdown',unlockMusic,{once:true});
+ back.addEventListener('click',()=>setPage(1));
+ musicBtn.addEventListener('click',async()=>{
+   musicWanted=!musicWanted;
+   if(musicWanted) await startMusic();
+   else {audio.pause();musicBtn.textContent='♫ MUSIC: OFF';note.classList.remove('show');}
+ });
+ // Buttons point to live official/real destinations; each opens in a separate tab.
+ document.getElementById('registration').addEventListener('click',()=>window.open('https://vp.eventival.com/elgounafilmfestival/9th-edition','_blank','noopener'));
+ document.getElementById('location').addEventListener('click',()=>window.open('https://www.google.com/maps/search/?api=1&query=El+Gouna+Film+Festival%2C+El+Gouna%2C+Egypt','_blank','noopener'));
+ document.getElementById('photos').addEventListener('click',()=>window.open('https://www.instagram.com/elgounafilmfestival/','_blank','noopener'));
+ document.getElementById('videos').addEventListener('click',()=>window.open('https://www.youtube.com/results?search_query=El+Gouna+Film+Festival+official','_blank','noopener'));
+ document.getElementById('website').addEventListener('click',()=>window.open('https://elgounafilmfestival.com/','_blank','noopener'));
+ // Gold stars twinkle across both screens and continue through the page transition.
+ document.querySelectorAll('.glow').forEach((layer)=>{
+   for(let i=0;i<52;i++){
+     const s=document.createElement('i');s.className='star';
+     s.style.left=(2+Math.random()*96)+'%';s.style.top=(2+Math.random()*96)+'%';
+     s.style.setProperty('--dur',(2.2+Math.random()*4.5)+'s');
+     s.style.setProperty('--delay',(-Math.random()*6)+'s');
+     const size=(2+Math.random()*3)+'px';s.style.width=size;s.style.height=size;
+     layer.appendChild(s);
+   }
+ });
+ // Attempt playback on the first page as requested. Browsers may require a tap;
+ // the OPEN INVITATION button retries playback after the user's gesture.
+ window.addEventListener('load',()=>{if(musicWanted)startMusic();});
+ audio.addEventListener('error',()=>{musicBtn.textContent='♫ ADD MUSIC';note.classList.add('show');});
+})();
+</script>
+</body>
+</html>
